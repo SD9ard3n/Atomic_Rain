@@ -30,32 +30,6 @@ L3 Decision Card     (8-150 行)  — references/vuln/*.md, 信号路由 + Triag
 L4 Scenarios         (80-200 行) — references/vuln/*-scenarios.md, 边角场景与升级链
 L5 Construction      (~250 行)   — references/payload-construction/*.md, 构造思路(SQLi/XSS/SSRF/JWT/BOLA)
 ```
-
-**当前各漏洞文件状态**:
-
-| 漏洞 | Decision Card | Scenarios | Construction |
-|------|---|---|---|
-| sqli | ✓ Light (38 行) | ✓ | ✓ |
-| xss | 薄 (16 行, 待升 Light) | ✓ | ✓ |
-| ssrf | ✓ Light Deep (148 行) | ✓ | ✓ |
-| ssti | ✓ Deep (298 行) | ✓ | — |
-| shiro | ✓ Light Deep (120 行) | — | — |
-| spring-vuln | ✓ Light Deep (143 行) | — | — |
-| fastjson-jackson | ✓ Light Deep (116 行) | — | — |
-| jwt-advanced | ✓ Light Deep (136 行) | — | — |
-| saml-attacks | ✓ Light Deep (122 行) | — | — |
-| prototype-pollution | ✓ Light Deep (122 行) | — | — |
-| race-condition | ✓ Light Deep (138 行) | — | — |
-| cmdi | ✓ Light Deep (125 行) | — | — |
-| xxe | ✓ Light Deep (136 行) | — | — |
-| upload | ✓ Light Deep (172 行) | — | — |
-| path-traversal | ✓ Light Deep (156 行) | — | — |
-| oidc-attacks | ✓ Deep (272 行, 老结构) | — | — |
-| oauth-advanced | ✓ Deep (317 行, 老结构) | — | — |
-| 老 Deep (deserialize/graphql/swagger-actuator/request-smuggling/csrf-clickjacking 等) | Deep, 缺 First-pass/Triage 标准头 | 部分 | — |
-
-**待办**: xss Decision Card 升级为 Light; 老 Deep 文件 (oidc/oauth/deserialize/graphql/swagger-actuator/request-smuggling/csrf-clickjacking) 加 First-pass Signal / Triage 标准头(不删原内容,只加路由层)。
-
 ---
 
 ## 快速开始
