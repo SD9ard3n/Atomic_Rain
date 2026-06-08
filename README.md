@@ -19,8 +19,8 @@
 
 ### 💡 选择建议
 
-- **新手/传统环境** → 选 **Classic 版**（`/classic/`）
-- **已配置 MCP/追求效率** → 选 **ToolPlus 版**（`/toolplus/`）
+- **传统环境** → 选 **Classic 版**（`/classic/`）
+- **已配置 Chrome Yakit MCP** → 选 **ToolPlus 版**（`/toolplus/`）
 
 ---
 
