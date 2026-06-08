@@ -1,0 +1,14 @@
+# [Protocol-Level]
+Transfer-Encoding: chunked
+Connection: keep-alive, Transfer-Encoding
+Content-Type: multipart/form-data; boundary=---x
+
+# [Encoding-Chain]
+%u0053%u0045%u004c%u0045%u0043%u0054 (Unicode)
+&#83;&#69;&#76;&#69;&#67;&#84; (HTML Entity)
+\x53\x45\x4c\x45\x43\x54 (Hex)
+
+# [Keyword-Mutation]
+SeLeCt
+/*!50000SELECT*/
+selselectect

