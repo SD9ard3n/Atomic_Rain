@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "profile": "toolplus",
+  "description": "Capability registry for Atomic Rain toolPlus. Capability IDs are stable; concrete MCP namespaces are discovered at runtime via references/mcp-readiness.md.",
+  "runtime_discovery": {
+    "readiness_reference": "references/mcp-readiness.md",
+    "namespace_policy": "Treat mcp__yaklang__* and mcp__chrome__* as preferred aliases, not guaranteed names. Discover actual server names and tool namespaces before active testing."
+  },
+  "capabilities": [
+    {
+      "id": "project_context",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__get_current_database_context"],
+      "required": true,
+      "required_fields": ["database", "project"],
+      "degraded_marker": "DEGRADED:DB_CONTEXT_UNKNOWN",
+      "fallback": "Do not switch or rely on Yakit history isolation until context is known. Direct HTTP fuzzing may continue only with the degraded marker."
+    },
+    {
+      "id": "http_fuzz",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__http_fuzzer", "mcp__yaklang__render_fuzztag"],
+      "required": true,
+      "required_fields": ["status_code", "body_length", "duration"],
+      "degraded_marker": "DEGRADED:YAKIT_MCP_DOWN",
+      "fallback": "Stop toolPlus first-pass HTTP testing and recommend classic. Do not silently use curl or Python requests."
+    },
+    {
+      "id": "traffic_history",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__query_http_flow", "mcp__yaklang__set_tag_for_http_flow"],
+      "required": true,
+      "required_fields": ["flow_id", "request", "response"],
+      "degraded_marker": "DEGRADED:YAKIT_MCP_DOWN",
+      "fallback": "Stop flow-history dependent evidence correlation. Continue only with explicitly captured artifacts."
+    },
+    {
+      "id": "browser_tabs",
+      "provider": "chrome",
+      "preferred_tools": ["mcp__chrome__get_windows_and_tabs"],
+      "required": true,
+      "required_fields": ["tabs", "active_tab"],
+      "degraded_marker": "DEGRADED:CHROME_MCP_DOWN",
+      "fallback": "Stop browser automation readiness checks; Yakit-only testing may continue."
+    },
+    {
+      "id": "browser_evidence",
+      "provider": "chrome",
+      "preferred_tools": ["mcp__chrome__chrome_navigate", "mcp__chrome__chrome_screenshot", "mcp__chrome__chrome_console"],
+      "required": false,
+      "required_fields": ["url", "screenshot_or_console"],
+      "degraded_marker": "DEGRADED:CHROME_MCP_DOWN",
+      "fallback": "Stop screenshots, console capture, and Chrome visual evidence. Keep HTTP evidence through Yakit if available."
+    },
+    {
+      "id": "browser_network",
+      "provider": "chrome",
+      "preferred_tools": ["mcp__chrome__chrome_network_debugger_start", "mcp__chrome__chrome_network_capture_start", "mcp__chrome__chrome_network_request"],
+      "required": false,
+      "required_fields": ["request", "response", "tab_id"],
+      "degraded_marker": "DEGRADED:CHROME_MCP_DOWN",
+      "fallback": "Stop Chrome network capture. Use Yakit flow history when available."
+    },
+    {
+      "id": "static_dataflow",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__ssa_compile", "mcp__yaklang__ssa_query"],
+      "required": false,
+      "required_fields": ["program_name", "rule", "results"],
+      "degraded_marker": "DEGRADED:SSA_UNAVAILABLE",
+      "fallback": "Use grep only as temporary degraded static analysis. Do not claim SSA-level data-flow proof from grep-only evidence."
+    },
+    {
+      "id": "codec_workflow",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__exec_codec", "mcp__yaklang__codec_method_details"],
+      "required": false,
+      "required_fields": ["input", "workflow", "output"],
+      "degraded_marker": "DEGRADED:CODEC_UNAVAILABLE",
+      "fallback": "Continue non-crypto testing only. Mark encrypted-parameter coverage incomplete."
+    },
+    {
+      "id": "asset_recon",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__subdomain_collection", "mcp__yaklang__port_scan", "mcp__yaklang__web_crawler", "mcp__yaklang__query_cve"],
+      "required": false,
+      "required_fields": ["asset", "status", "source"],
+      "degraded_marker": "DEGRADED:YAKIT_MCP_DOWN",
+      "fallback": "Use classic recon tooling only after explicitly switching profile or documenting the temporary substitution."
+    },
+    {
+      "id": "controlled_bruteforce",
+      "provider": "yakit",
+      "preferred_tools": ["mcp__yaklang__brute"],
+      "required": false,
+      "required_fields": ["target", "protocol", "result"],
+      "degraded_marker": "DEGRADED:YAKIT_MCP_DOWN",
+      "hitl_required": true,
+      "fallback": "Do not substitute hydra or bulk brute force without HITL approval and scope confirmation."
+    }
+  ]
+}

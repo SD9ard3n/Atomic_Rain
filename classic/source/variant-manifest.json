@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "description": "Single-source manifest for Atomic Rain dual-version governance. This is a conservative scaffold: it declares shared files and variant overlays without moving existing knowledge files.",
+  "profiles": ["classic", "toolplus"],
+  "shared_files": [
+    "capabilities/cli-capabilities.json",
+    "capabilities/mcp-capabilities.json",
+    "evals/evals.json",
+    "references/artifact-quality-gates.md",
+    "references/business-flow-checklist.md",
+    "references/scan_modes/deep.md",
+    "references/scan_modes/quick.md",
+    "references/scan_modes/standard.md",
+    "schemas/evidence.schema.json",
+    "schemas/report.schema.json",
+    "schemas/vulnerability.schema.json",
+    "scripts/validate_artifacts.py",
+    "scripts/validate_capabilities.py",
+    "source/runtime-tiers.json"
+  ],
+  "repository_only": [
+    "README.md",
+    "evals/evals.json",
+    "source/variant-manifest.json",
+    "source/runtime-tiers.json"
+  ],
+  "runtime_excluded": [
+    "README.md",
+    "evals/",
+    "source/"
+  ],
+  "variant_overlays": {
+    "classic": {
+      "entrypoint": "SKILL.md",
+      "capability_registry": "capabilities/cli-capabilities.json",
+      "required_files": [
+        "references/tool-config.md",
+        "references/tooling/ffuf.md",
+        "references/tooling/nuclei.md",
+        "references/tooling/sqlmap.md"
+      ],
+      "forbidden_files": [
+        "references/mcp-tools-finder.md",
+        "references/mcp-readiness.md",
+        "references/evidence-pipeline.md",
+        "scripts/build.py"
+      ]
+    },
+    "toolplus": {
+      "entrypoint": "SKILL.md",
+      "capability_registry": "capabilities/mcp-capabilities.json",
+      "required_files": [
+        "references/mcp-tools-finder.md",
+        "references/mcp-readiness.md",
+        "references/evidence-pipeline.md",
+        "references/ssa-vuln-hunting.md",
+        "scripts/build.py"
+      ],
+      "forbidden_files": [
+        "references/tooling/ffuf.md",
+        "references/tooling/nuclei.md",
+        "references/tooling/sqlmap.md"
+      ]
+    }
+  }
+}

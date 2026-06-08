@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "profile": "classic",
+  "description": "Capability registry for Atomic Rain classic. Capability IDs are stable; concrete tools are selected from references/tool-config.md and references/tooling/ playbooks.",
+  "runtime_discovery": {
+    "tool_config_reference": "references/tool-config.md",
+    "tooling_reference_dir": "references/tooling",
+    "path_policy": "Prefer configured local tool directories, then PATH. Record command, exit code, and first-pass signal fields."
+  },
+  "capabilities": [
+    {
+      "id": "http_probe",
+      "provider": "cli",
+      "preferred_tools": ["curl", "httpx"],
+      "required": true,
+      "required_fields": ["HTTP_CODE", "RESP_LENGTH_DELTA", "TIMING_DELAY"],
+      "fallback": "Use another HTTP-capable CLI only if command, status, length, and timing can still be recorded."
+    },
+    {
+      "id": "directory_fuzz",
+      "provider": "cli",
+      "preferred_tools": ["ffuf", "dirsearch"],
+      "required": false,
+      "required_fields": ["url", "status_code", "length"],
+      "fallback": "Reduce rate or switch between ffuf and dirsearch; preserve output artifact path."
+    },
+    {
+      "id": "template_scan",
+      "provider": "cli",
+      "preferred_tools": ["nuclei", "xray", "afrog"],
+      "required": false,
+      "required_fields": ["template", "target", "matched"],
+      "fallback": "Treat scanner output as candidate only; require manual first-pass validation before confirmed status."
+    },
+    {
+      "id": "sqli_assist",
+      "provider": "cli",
+      "preferred_tools": ["sqlmap"],
+      "required": false,
+      "required_fields": ["request", "technique", "dbms"],
+      "fallback": "Run manual boolean/time/error confirmation before sqlmap. Do not launch full exploitation without signal evidence."
+    },
+    {
+      "id": "asset_recon",
+      "provider": "cli",
+      "preferred_tools": ["oneforall", "subfinder", "httpx", "nmap", "sslscan", "wafw00f", "ehole", "P1finger"],
+      "required": false,
+      "required_fields": ["asset", "source", "status"],
+      "fallback": "Use alternate recon tools and record source confidence; avoid treating OSINT-only assets as confirmed live targets."
+    },
+    {
+      "id": "static_grep",
+      "provider": "cli",
+      "preferred_tools": ["rg", "grep", "semgrep"],
+      "required": false,
+      "required_fields": ["pattern", "file", "line"],
+      "fallback": "Use grep as heuristic evidence only unless validated dynamically or by a stronger data-flow tool."
+    },
+    {
+      "id": "java_gadget_analysis",
+      "provider": "cli",
+      "preferred_tools": ["ysoserial", "java"],
+      "required": false,
+      "required_fields": ["gadget", "payload", "target_context"],
+      "hitl_required": true,
+      "fallback": "Do not run destructive gadget payloads without HITL. Prefer detection and safe proof first."
+    },
+    {
+      "id": "email_auth_check",
+      "provider": "cli",
+      "preferred_tools": ["dig", "nslookup", "spoofcheck", "swaks"],
+      "required": false,
+      "required_fields": ["domain", "spf", "dmarc"],
+      "hitl_required": true,
+      "fallback": "DNS record checks may run locally; sending spoofed mail requires P3.5 HITL approval and supplied recipient."
+    },
+    {
+      "id": "mobile_app_static",
+      "provider": "cli-hitl",
+      "preferred_tools": ["jadx", "frida", "objection", "drozer"],
+      "required": false,
+      "required_fields": ["package", "artifact", "finding"],
+      "hitl_required": true,
+      "fallback": "Require local device/app setup. If unavailable, record blocked state rather than fabricating coverage."
+    },
+    {
+      "id": "oob_listener",
+      "provider": "external-hitl",
+      "preferred_tools": ["interactsh-client", "burp-collaborator", "self-hosted-dns"],
+      "required": false,
+      "required_fields": ["channel", "callback", "approval"],
+      "hitl_required": true,
+      "fallback": "Do not use public OOB services by default. Mark blocked when no approved listener is available."
+    }
+  ]
+}

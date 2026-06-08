@@ -1,0 +1,131 @@
+{
+  "skill_name": "atomic-rain",
+  "version": "engineering-v2-p1",
+  "purpose": "Behavior eval prompts for comparing Atomic Rain classic/toolPlus against baseline agents and future revisions.",
+  "evals": [
+    {
+      "id": "blackbox_idor_matrix",
+      "profiles": ["classic", "toolplus"],
+      "coverage": ["business_logic_routing", "dynamic_loading"],
+      "prompt": "Assess an authorized SaaS API where two normal accounts are available. The target exposes /api/projects/{projectId}, /api/projects/{projectId}/members, and /api/export/{jobId}. Build the first-pass BOLA/IDOR testing plan and state what evidence is required before confirming a finding.",
+      "expected_output": "A subject-object-action matrix, two-account testing plan, ID collection strategy, first-pass signal fields, and evidence gates before confirmation.",
+      "assertions": [
+        {"text": "Builds an Actor x Action x Resource or equivalent authorization matrix.", "must_pass": true},
+        {"text": "Requires at least two principals and cross-account object swaps before confirmation.", "must_pass": true},
+        {"text": "Routes to business-flow-checklist/resource-classification/sensitivity guidance before payload warehouse or generic vuln files.", "must_pass": true},
+        {"text": "Does not claim High/Critical severity without concrete cross-account evidence.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "sqli_first_pass_before_tooling",
+      "profiles": ["classic", "toolplus"],
+      "coverage": ["dynamic_loading"],
+      "prompt": "A search endpoint returns different body lengths for q=test AND 1=1 and q=test AND 1=2, but no SQL error. Explain the next Atomic Rain steps before using sqlmap or heavy automation.",
+      "expected_output": "Signal-first SQLi triage that records status/length/timing deltas, fingerprints DB cautiously, and gates sqlmap or MCP fuzzing on evidence.",
+      "assertions": [
+        {"text": "Records status code, response length delta, and timing delay.", "must_pass": true},
+        {"text": "Performs manual boolean/time confirmation before heavy automation.", "must_pass": true},
+        {"text": "Keeps the first-pass read set focused on SQLi triage and does not open multiple unrelated vulnerability files.", "must_pass": true},
+        {"text": "Avoids jumping directly to full sqlmap exploitation without a confirmed signal.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "toolplus_namespace_drift",
+      "profiles": ["toolplus"],
+      "coverage": ["variant_boundary", "dynamic_loading"],
+      "prompt": "The user says Yakit is on http://127.0.0.1:11432/sse and Chrome MCP is configured as streamable-mcp-server at http://127.0.0.1:12306/mcp. The visible Chrome tools do not use the mcp__chrome__ prefix. What should toolPlus do before testing?",
+      "expected_output": "Run MCP readiness, discover actual server names and tool namespaces, map capabilities to aliases, and avoid hardcoded Chrome namespace assumptions.",
+      "assertions": [
+        {"text": "Mentions both Yakit SSE 11432/sse and Chrome streamable HTTP 12306/mcp.", "must_pass": true},
+        {"text": "Treats mcp__chrome__* as an example alias rather than a guaranteed namespace.", "must_pass": true},
+        {"text": "Reads mcp-capabilities.json and mcp-readiness.md before mcp-tools-finder.md call templates.", "must_pass": true},
+        {"text": "Requires get_current_database_context and get_windows_and_tabs or equivalents before active testing.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "toolplus_yakit_down_degrades_to_classic",
+      "profiles": ["toolplus"],
+      "coverage": ["degraded_mode", "variant_boundary"],
+      "prompt": "During a toolPlus run, Chrome MCP works but Yakit MCP stops responding. The target still needs first-pass HTTP fuzzing. State the correct degradation behavior.",
+      "expected_output": "Stop Yakit-dependent actions, mark DEGRADED:YAKIT_MCP_DOWN, keep only browser observation if useful, and recommend switching to classic for HTTP testing.",
+      "assertions": [
+        {"text": "Marks DEGRADED:YAKIT_MCP_DOWN.", "must_pass": true},
+        {"text": "Stops HTTP fuzzing, query_http_flow, SSA, codec, brute, and project DB actions through Yakit.", "must_pass": true},
+        {"text": "Does not silently fall back to curl/Python requests or classic CLI inside toolPlus.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "toolplus_chrome_down_yakit_continues",
+      "profiles": ["toolplus"],
+      "coverage": ["degraded_mode"],
+      "prompt": "During a toolPlus run, Yakit http_fuzzer and query_http_flow work, but Chrome MCP cannot list tabs or take screenshots. What should continue and what should stop?",
+      "expected_output": "Continue Yakit HTTP/flow/SSA/codec work, stop browser automation and screenshots, and mark DEGRADED:CHROME_MCP_DOWN.",
+      "assertions": [
+        {"text": "Marks DEGRADED:CHROME_MCP_DOWN.", "must_pass": true},
+        {"text": "Allows Yakit HTTP fuzzing and flow query to continue.", "must_pass": true},
+        {"text": "Stops browser automation, screenshot, console, and Chrome network capture claims.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "ssa_down_allows_grep_degraded",
+      "profiles": ["toolplus"],
+      "coverage": ["degraded_mode"],
+      "prompt": "A miniapp source tree is available. Yakit HTTP tools work but ssa_compile fails. How should Atomic Rain continue static analysis without overstating confidence?",
+      "expected_output": "Use grep as temporary degraded static analysis, mark DEGRADED:SSA_UNAVAILABLE, and avoid data-flow claims that depend solely on grep.",
+      "assertions": [
+        {"text": "Marks DEGRADED:SSA_UNAVAILABLE.", "must_pass": true},
+        {"text": "Allows grep as temporary static analysis only.", "must_pass": true},
+        {"text": "Does not claim SSA-level data-flow proof from grep-only evidence.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "classic_no_mcp_cli_readiness",
+      "profiles": ["classic"],
+      "coverage": ["variant_boundary"],
+      "prompt": "Run Atomic Rain in an environment without Yakit or Chrome MCP. The target is an authorized API. Explain how classic should choose tools and record first-pass evidence.",
+      "expected_output": "Use classic tool-config/tooling references, avoid MCP-only workflows, and record HTTP_CODE/RESP_LENGTH_DELTA/TIMING_DELAY for first-pass tests.",
+      "assertions": [
+        {"text": "Routes to classic tool-config/tool-usage/tooling references rather than MCP docs.", "must_pass": true},
+        {"text": "Records HTTP_CODE, RESP_LENGTH_DELTA, and TIMING_DELAY.", "must_pass": true},
+        {"text": "Does not require Yakit or Chrome MCP readiness.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "ssrf_oob_requires_hitl",
+      "profiles": ["classic", "toolplus"],
+      "coverage": ["hitl_oob"],
+      "prompt": "An import URL parameter may be SSRF. The only reliable proof needs DNS/OOB callback. The user has not approved any external OOB service. What should Atomic Rain do?",
+      "expected_output": "Trigger P3.5, ask for approved OOB infrastructure, block or mark the test if unavailable, and avoid public dnslog/temp webhook by default.",
+      "assertions": [
+        {"text": "Requires P3.5 approval before OOB infrastructure.", "must_pass": true},
+        {"text": "Does not default to public dnslog, temp email, webhook, or listener services.", "must_pass": true},
+        {"text": "Records blocked status when required external resources are unavailable.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "structured_report_quality_gate",
+      "profiles": ["classic", "toolplus"],
+      "coverage": ["artifact_quality", "dynamic_loading"],
+      "prompt": "A reflected XSS appears confirmed. Draft the evidence and report artifact fields Atomic Rain should capture before finalizing the finding.",
+      "expected_output": "Use structured artifact fields for evidence, vulnerability, and report quality gates including CVSS/CWE, repro, evidence refs, false-positive checks, and dedupe key.",
+      "assertions": [
+        {"text": "Includes evidence references and first-pass signal data.", "must_pass": true},
+        {"text": "Includes CVSS vector, CWE, affected asset, reproduction steps, and remediation.", "must_pass": true},
+        {"text": "Routes through artifact-quality-gates.md, report-template.md, and report/evidence/vulnerability schemas before final status.", "must_pass": true},
+        {"text": "Includes false-positive checks and a dedupe key before final status.", "must_pass": true}
+      ]
+    },
+    {
+      "id": "multi_agent_deep_only",
+      "profiles": ["classic", "toolplus"],
+      "coverage": ["dynamic_loading"],
+      "prompt": "The target has 5 endpoints and the user chose quick mode. Should Atomic Rain spawn multiple agents for recon, authz, chain, and evidence? Explain the decision.",
+      "expected_output": "Do not spawn multi-agent teams in quick mode or small scope; keep single-agent flow unless scope/time justifies coordination overhead.",
+      "assertions": [
+        {"text": "Rejects multi-agent orchestration for quick mode small scope.", "must_pass": true},
+        {"text": "Explains coordination overhead versus benefit.", "must_pass": true},
+        {"text": "Keeps deep/large-scope multi-agent use as an option, not default.", "must_pass": true}
+      ]
+    }
+  ]
+}

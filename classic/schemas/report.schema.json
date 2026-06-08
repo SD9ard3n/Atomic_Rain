@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atomic-rain.local/schemas/report.schema.json",
+  "title": "Atomic Rain Report Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "generated_at",
+    "profile",
+    "target",
+    "summary",
+    "findings",
+    "quality_gates"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "report_id": {"type": "string", "pattern": "^RPT-[A-Za-z0-9._-]+$"},
+    "generated_at": {"type": "string"},
+    "profile": {"type": "string", "enum": ["classic", "toolplus", "deployed-mixed"]},
+    "target": {"type": "string", "minLength": 1},
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "tested_assets", "confirmed_count", "blocked_count"],
+      "properties": {
+        "scope": {"type": "string", "minLength": 1},
+        "tested_assets": {"type": "array", "items": {"type": "string"}},
+        "confirmed_count": {"type": "integer", "minimum": 0},
+        "blocked_count": {"type": "integer", "minimum": 0},
+        "executive_summary": {"type": "string"}
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["vuln_id", "title", "severity", "status", "evidence_refs", "dedupe_key"],
+        "properties": {
+          "vuln_id": {"type": "string", "pattern": "^VULN-[A-Za-z0-9._-]+$"},
+          "title": {"type": "string"},
+          "severity": {"type": "string", "enum": ["Critical", "High", "Medium", "Low", "Info", "Unknown"]},
+          "status": {"type": "string", "enum": ["candidate", "confirmed", "rejected", "blocked"]},
+          "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^EV-[A-Za-z0-9._-]+$"}},
+          "dedupe_key": {"type": "string"}
+        }
+      }
+    },
+    "quality_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["first_pass_signals_present", "false_positive_checks_present", "evidence_refs_present", "p3_5_external_resources_respected", "dedupe_keys_unique", "high_critical_have_non_note_evidence"],
+      "properties": {
+        "first_pass_signals_present": {"type": "boolean"},
+        "false_positive_checks_present": {"type": "boolean"},
+        "evidence_refs_present": {"type": "boolean"},
+        "p3_5_external_resources_respected": {"type": "boolean"},
+        "dedupe_keys_unique": {"type": "boolean"},
+        "high_critical_have_non_note_evidence": {"type": "boolean"},
+        "degraded_markers_declared": {"type": "boolean"}
+      }
+    }
+  }
+}

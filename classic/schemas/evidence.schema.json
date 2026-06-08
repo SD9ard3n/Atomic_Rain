@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atomic-rain.local/schemas/evidence.schema.json",
+  "title": "Atomic Rain Evidence Artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "collected_at",
+    "profile",
+    "target",
+    "evidence_type",
+    "source",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0"},
+    "evidence_id": {"type": "string", "pattern": "^EV-[A-Za-z0-9._-]+$"},
+    "collected_at": {"type": "string", "description": "ISO-8601 timestamp with timezone when possible."},
+    "profile": {"type": "string", "enum": ["classic", "toolplus", "deployed-mixed"]},
+    "target": {"type": "string", "minLength": 1},
+    "evidence_type": {
+      "type": "string",
+      "enum": ["http", "screenshot", "console", "traffic-flow", "static-analysis", "oob", "manual-note", "other"]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["capability"],
+      "properties": {
+        "capability": {"type": "string", "minLength": 1},
+        "tool": {"type": "string"},
+        "command_or_call": {"type": "string"},
+        "flow_id": {"type": ["string", "integer"]},
+        "request_hash": {"type": "string"}
+      }
+    },
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status_code": {"type": ["integer", "null"]},
+        "body_length": {"type": ["integer", "null"]},
+        "body_length_delta": {"type": ["integer", "null"]},
+        "duration_ms": {"type": ["number", "null"]},
+        "marker": {"type": "string"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "value"],
+        "properties": {
+          "kind": {"type": "string", "enum": ["path", "url", "raw-request", "raw-response", "screenshot", "flow-tag", "note"]},
+          "value": {"type": "string", "minLength": 1},
+          "redacted": {"type": "boolean", "default": false}
+        }
+      }
+    },
+    "degraded_markers": {"type": "array", "items": {"type": "string", "pattern": "^DEGRADED:[A-Z0-9_]+$"}, "default": []},
+    "notes": {"type": "string"}
+  }
+}

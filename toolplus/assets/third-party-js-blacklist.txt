@@ -1,0 +1,233 @@
+# 第三方 JS 文件黑名单 (跳过下载)
+# 匹配规则: 文件名包含以下关键字即跳过(不区分大小写)
+# 用法: 喂给 mcp__yaklang__web_crawler 的 excludeKeywords 字段,或 mcp__chrome__chrome_network_* 抓包后人工过滤
+# 以 # 开头的行是注释
+
+# ===== 前端框架 =====
+vue
+vue-router
+vuex
+pinia
+react
+react-dom
+react-router
+react-redux
+redux
+next
+nuxt
+svelte
+sveltekit
+preact
+alpine
+alpinejs
+ember
+backbone
+knockout
+marionette
+uni-app
+uniapp
+taro
+tarojs
+
+# ===== UI 库 =====
+element
+element-ui
+element-plus
+antd
+ant-design
+vuetify
+bootstrap
+bootstrap-vue
+material-ui
+mui
+tailwindcss
+bulma
+semantic-ui
+foundation
+vant
+vant-ui
+nutui
+varlet
+
+# ===== 工具库 =====
+jquery
+lodash
+underscore
+moment
+dayjs
+date-fns
+axios
+fetch-polyfill
+zustand
+mobx
+rxjs
+immutable
+ramda
+luxon
+fecha
+superagent
+reqwest
+crypto-js
+cryptojs
+jsencrypt
+md5
+base64
+
+# ===== 图表/可视化 =====
+echarts
+chartjs
+d3
+d3js
+highcharts
+three
+threejs
+plotly
+amcharts
+apexcharts
+
+# ===== 动画/UI交互 =====
+swiper
+aos
+animate.css
+animated
+gsap
+lottie
+velocity
+anime
+layer
+sweetalert
+swal
+sweetalert2
+noty
+notify
+lazyload
+lozad
+loading
+
+# ===== 地图 =====
+leaflet
+mapbox
+openlayers
+baidu-map
+amap
+gmaps
+
+# ===== 富文本/编辑器 =====
+tinymce
+ckeditor
+quill
+codemirror
+monaco
+ace
+froala
+draft
+ueditor
+
+# ===== 图标 =====
+fontawesome
+material-icons
+ionicons
+feather
+
+# ===== 分析/埋点 (跳过) =====
+googletagmanager
+google-analytics
+gtag
+gtm
+ga.js
+baidu-statistics
+tongji
+cnzz
+matomo
+piwik
+mixpanel
+amplitude
+segment
+heap
+umami
+bdstat
+51la
+tencent-stat
+qstat
+jshare
+
+# ===== 错误监控 =====
+sentry
+bugsnag
+rollbar
+datadog
+newrelic
+raygun
+
+# ===== 用户行为/热图 =====
+hotjar
+clarity
+fullstory
+mouseflow
+crazyegg
+
+# ===== 运行时 Polyfill =====
+polyfill
+regenerator
+core-js
+babel-polyfill
+es6-shim
+promise-polyfill
+whatwg-fetch
+url-polyfill
+intersection-observer
+resize-observer
+html5shiv
+respond
+
+# ===== Webpack 运行时 =====
+chunk-vendors
+vendors
+runtime
+webpack-runtime
+chunk-common
+chunk-manifest
+
+# ===== 构建工具产物 =====
+babel
+rollup
+parcel
+
+# ===== 第三方 SDK =====
+facebook
+twitter
+linkedin
+weibo-share
+wechat-jssdk
+pay.js
+stripe
+paypal
+alipay
+recaptcha
+hcaptcha
+turnstile
+geetest
+captcha
+wx-jsapi
+my
+swan
+
+# ===== 媒体/文档预览 =====
+hls
+hls.js
+flv
+flv.js
+video.js
+videojs
+pdfjs
+pdf.js
+xlsx
+sheetjs
+
+# ===== 其他 =====
+commons
+shared
+
+# 注: 以下关键字故意不加黑名单(可能是业务代码, 要下载):
+# - app, main, index, chunk-*[非 vendors], api, config, utils, router, store
+# - auth, user, order, pay, business 等业务模块

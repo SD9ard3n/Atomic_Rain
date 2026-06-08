@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "description": "Runtime packaging tiers for Atomic Rain. The default full tier preserves current behavior. Lean is currently a link-safe content-light package: it keeps the same runtime file graph while the heaviest shared references are compressed in place.",
+  "default_tier": "full",
+  "tiers": {
+    "full": {
+      "description": "Complete runtime package. Excludes only repository-maintenance material.",
+      "exclude": []
+    },
+    "lean": {
+      "description": "Link-safe lightweight package for common black-box testing. File-level pruning is intentionally disabled until the builder can rewrite or close over all markdown and plain-text runtime references.",
+      "exclude": []
+    }
+  }
+}
