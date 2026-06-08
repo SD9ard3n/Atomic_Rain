@@ -89,10 +89,6 @@ P3: 利用拓展     → 链式攻击 + 敏感信息利用
 P4: 取证报告     → OWASP 映射 + 证据标准
 ```
 
-### 三档扫描模式
-- **quick**: 30 分钟快速验证（First-pass only）
-- **standard**: 2-4 小时标准流程（推荐）
-- **deep**: 全天深度挖掘（包括时间盲注/竞态）
 
 ### 70+ 漏洞覆盖
 SQL 注入 / XSS / SSRF / 反序列化 / XXE / SSTI / 命令注入 / JWT / OAuth / OIDC / CORS / CSRF / 点击劫持 / 路径穿越 / 文件上传 / 逻辑漏洞 / 竞态条件 / Shiro / FastJSON / Spring / GraphQL / Swagger / Actuator / 云 AK 利用 / 移动端逆向 / AI Prompt 注入...
@@ -158,7 +154,6 @@ Atomic_Rain/
 - `subfinder` / `amass` / `xray` / `fscan` / `ysoserial` / `ffuf` / `katana`
 
 ### ToolPlus 版
-**必须**:
 - **Yakit MCP**: http://127.0.0.1:11432/sse
 - **Chrome MCP**: http://127.0.0.1:12306/mcp
 
