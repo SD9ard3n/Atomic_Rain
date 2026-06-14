@@ -168,14 +168,6 @@ Atomic_Rain/
 
 ---
 
-## 📞 反馈与贡献
-
-- **Issues**: https://github.com/SD9ard3n/Atomic_Rain/issues
-- **Discussions**: https://github.com/SD9ard3n/Atomic_Rain/discussions
-- **双版本协作规则**: 见桌面 `atomic-rain-双版本协作规则.md`
-
----
-
 ## 📄 开源协议
 
 MIT License
