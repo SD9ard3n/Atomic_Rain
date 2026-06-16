@@ -55,24 +55,6 @@ cd Atomic_Rain/toolplus
 
 ---
 
-## ✨ v2.0 新特性
-
-### 🎯 信号识别 v2
-- **概率信号模型**: 多信号加权置信度计算
-- **异常行为检测**: P1 异常检测门禁
-- **自适应 WAF 对抗**: 熵计算 + Payload
-- **上下文感知 Payload**: 根据目标特征动态生成
-
-### 📚 文档增强
-- 新增 4 个核心文档（2,065 行）
-  - `signal-probability-model.md`: 概率模型计算方法
-  - `anomaly-detection.md`: 异常行为检测协议
-  - `adaptive-waf-evasion.md`: WAF 熵计算与降级
-  - `context-aware-payloads.md`: 上下文感知构造
-- 新增 9 个专项文档（SRC/EDUSRC/国产框架/移动端/二维码等）
-
----
-
 ## 📋 核心特性（两版本共享）
 
 ### Phase 0-4 工作流
